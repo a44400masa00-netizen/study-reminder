@@ -18,8 +18,8 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Android SDKをセットアップ
-        uses: android-actions/setup-android@v3
+      - name: Androidライセンスに同意
+        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null || true
 
       - name: Gradleをセットアップ
         uses: gradle/actions/setup-gradle@v4
