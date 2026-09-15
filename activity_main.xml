@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Study Reminder 設定"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchEnabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="スケジュールを有効にする（毎日18:00-23:00）"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="① 強制的に開くアプリ"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/textTargetApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="未設定"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonPickApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="アプリを選択する"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="② 通知を送る時間帯"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/textWindow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="18:00 〜 23:00"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/buttonSetStartTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="開始時刻を変更" />
+
+            <Button
+                android:id="@+id/buttonSetEndTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="終了時刻を変更" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="③ 自宅のWi-Fi（最大5件まで登録可）"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/textHomeSsid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="未設定"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonRegisterSsid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="今いるWi-Fiを追加登録"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonManageSsid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="登録済みWi-Fiを管理（削除）"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="④ 権限の設定（動作に必須）"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonNotifPermission"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="通知の権限を許可" />
+            <TextView
+                android:id="@+id/badgeNotif"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonLocationPermission"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="位置情報の権限を許可（Wi-Fi判定に必要）" />
+            <TextView
+                android:id="@+id/badgeLocation"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonUsageAccess"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="使用状況へのアクセスを許可" />
+            <TextView
+                android:id="@+id/badgeUsage"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonExactAlarm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="アラームとリマインダーを許可" />
+            <TextView
+                android:id="@+id/badgeAlarm"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonBatteryOptimization"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="バッテリー最適化の対象から除外" />
+            <TextView
+                android:id="@+id/badgeBattery"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
+            <Button
+                android:id="@+id/buttonOverlayPermission"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="他のアプリの上に重ねて表示を許可（CAUTION演出に必須）" />
+            <TextView
+                android:id="@+id/badgeOverlay"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⑤ 動作確認・デバッグ"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonDebugStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="今の状態を確認する"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonTestNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="テスト通知を今すぐ送る（条件を無視）"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonTestCaution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CAUTION演出をテスト"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonTestGetDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GET DOWN TO演出をテスト" />
+
+    </LinearLayout>
+</ScrollView>
