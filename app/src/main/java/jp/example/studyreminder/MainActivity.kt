@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonUsageAccess.setOnClickListener { openUsageAccessSettings() }
         binding.buttonExactAlarm.setOnClickListener { openExactAlarmSettings() }
         binding.buttonBatteryOptimization.setOnClickListener { openBatteryOptimizationSettings() }
+        binding.buttonOverlayPermission.setOnClickListener { openOverlayPermissionSettings() }
 
         binding.buttonDebugStatus.setOnClickListener {
             AlertDialog.Builder(this)
@@ -66,6 +67,20 @@ class MainActivity : AppCompatActivity() {
             NotificationHelper.createChannels(this)
             NotificationHelper.showStudyNotification(this)
             Toast.makeText(this, "テスト通知を送信しました。通知が表示されない場合は通知権限を確認してください", Toast.LENGTH_LONG).show()
+        }
+        binding.buttonTestCaution.setOnClickListener {
+            if (!hasOverlayPermission()) {
+                Toast.makeText(this, "先に「他のアプリの上に重ねて表示」を許可してください", Toast.LENGTH_LONG).show()
+            } else {
+                OverlayService.show(this, OverlayService.MSG_CAUTION)
+            }
+        }
+        binding.buttonTestGetDown.setOnClickListener {
+            if (!hasOverlayPermission()) {
+                Toast.makeText(this, "先に「他のアプリの上に重ねて表示」を許可してください", Toast.LENGTH_LONG).show()
+            } else {
+                OverlayService.show(this, OverlayService.MSG_GET_DOWN)
+            }
         }
 
         refreshStatus()
@@ -83,16 +98,36 @@ class MainActivity : AppCompatActivity() {
         binding.textHomeSsid.text = if (ssids.isEmpty()) "未設定" else
             ssids.joinToString("、") + "（${ssids.size}/${Prefs.MAX_HOME_SSIDS}件）"
 
-        val sb = StringBuilder()
-        sb.append("通知権限: ").append(if (hasNotificationPermission()) "OK" else "未許可").append("\n")
-        sb.append("位置情報権限: ").append(if (hasLocationPermission()) "OK" else "未許可").append("\n")
-        sb.append("使用状況アクセス: ").append(if (hasUsageAccess()) "OK" else "未許可").append("\n")
-        sb.append("正確なアラーム: ").append(if (hasExactAlarmPermission()) "OK" else "未許可").append("\n")
-        sb.append("バッテリー最適化除外: ").append(if (isIgnoringBatteryOptimizations()) "OK" else "未設定")
-        binding.textStatus.text = sb.toString()
+        setBadge(binding.badgeNotif, hasNotificationPermission())
+        setBadge(binding.badgeLocation, hasLocationPermission())
+        setBadge(binding.badgeUsage, hasUsageAccess())
+        setBadge(binding.badgeAlarm, hasExactAlarmPermission())
+        setBadge(binding.badgeBattery, isIgnoringBatteryOptimizations())
+        setBadge(binding.badgeOverlay, hasOverlayPermission())
+    }
+
+    private fun setBadge(view: android.widget.TextView, granted: Boolean) {
+        view.text = if (granted) "ON" else "OFF"
+        view.setTextColor(if (granted) 0xFF2E7D32.toInt() else 0xFFC62828.toInt())
     }
 
     // ---------- 通知時間帯の変更 ----------
+
+    /** 特定の設定画面を開こうとして失敗した場合、アプリの詳細設定画面にフォールバックする */
+    private fun safeStartSettings(intent: Intent, notFoundMessage: String) {
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this, notFoundMessage, Toast.LENGTH_LONG).show()
+            try {
+                startActivity(
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))
+                )
+            } catch (e2: Exception) {
+                Toast.makeText(this, "設定画面を開けませんでした。端末の設定アプリから手動で確認してください", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
     private fun showTimePicker(isStart: Boolean) {
         val current = if (isStart) prefs.windowStartMinutes else prefs.windowEndMinutes
@@ -237,7 +272,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun openUsageAccessSettings() {
         Toast.makeText(this, "一覧から「${getString(R.string.app_name)}」を探してONにしてください", Toast.LENGTH_LONG).show()
-        startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+        safeStartSettings(
+            Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),
+            "使用状況アクセスの設定画面を開けませんでした"
+        )
     }
 
     private fun hasExactAlarmPermission(): Boolean {
@@ -249,7 +287,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun openExactAlarmSettings() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:$packageName")))
+            safeStartSettings(
+                Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:$packageName")),
+                "アラーム許可の設定画面を開けませんでした。端末の「設定→アプリ→Study Reminder→アラームとリマインダー」から許可してください"
+            )
         } else {
             Toast.makeText(this, "このAndroidバージョンでは追加の許可は不要です", Toast.LENGTH_SHORT).show()
         }
@@ -261,7 +302,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openBatteryOptimizationSettings() {
-        val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:$packageName"))
-        startActivity(intent)
+        safeStartSettings(
+            Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:$packageName")),
+            "バッテリー最適化の設定画面を開けませんでした"
+        )
+    }
+
+    private fun hasOverlayPermission(): Boolean {
+        return Settings.canDrawOverlays(this)
+    }
+
+    private fun openOverlayPermissionSettings() {
+        safeStartSettings(
+            Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")),
+            "重ねて表示の設定画面を開けませんでした"
+        )
     }
 }

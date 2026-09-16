@@ -120,49 +120,137 @@
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
-        <Button
-            android:id="@+id/buttonNotifPermission"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="通知の権限を許可"
-            android:layout_marginBottom="8dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonNotifPermission"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="通知の権限を許可" />
+            <TextView
+                android:id="@+id/badgeNotif"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonLocationPermission"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="位置情報の権限を許可（Wi-Fi判定に必要）"
-            android:layout_marginBottom="8dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonLocationPermission"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="位置情報の権限を許可（Wi-Fi判定に必要）" />
+            <TextView
+                android:id="@+id/badgeLocation"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonUsageAccess"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="使用状況へのアクセスを許可"
-            android:layout_marginBottom="8dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonUsageAccess"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="使用状況へのアクセスを許可" />
+            <TextView
+                android:id="@+id/badgeUsage"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonExactAlarm"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="アラームとリマインダーを許可"
-            android:layout_marginBottom="8dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonExactAlarm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="アラームとリマインダーを許可" />
+            <TextView
+                android:id="@+id/badgeAlarm"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonBatteryOptimization"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="バッテリー最適化の対象から除外"
-            android:layout_marginBottom="24dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <Button
+                android:id="@+id/buttonBatteryOptimization"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="バッテリー最適化の対象から除外" />
+            <TextView
+                android:id="@+id/badgeBattery"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textStatus"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#666666"
-            android:textSize="12sp"
-            android:layout_marginBottom="24dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
+            <Button
+                android:id="@+id/buttonOverlayPermission"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="他のアプリの上に重ねて表示を許可（CAUTION演出に必須）" />
+            <TextView
+                android:id="@+id/badgeOverlay"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="OFF" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -182,7 +270,21 @@
             android:id="@+id/buttonTestNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="テスト通知を今すぐ送る（条件を無視）" />
+            android:text="テスト通知を今すぐ送る（条件を無視）"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonTestCaution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CAUTION演出をテスト"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonTestGetDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GET DOWN TO演出をテスト" />
 
     </LinearLayout>
 </ScrollView>

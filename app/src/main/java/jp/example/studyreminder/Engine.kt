@@ -72,6 +72,7 @@ object Engine {
         prefs.studying = false
         prefs.warningCount += 1
         NotificationHelper.showWarningNotification(context, prefs.warningCount)
+        OverlayService.show(context, OverlayService.MSG_CAUTION)
     }
 
     fun onWarningStart(context: Context) {
@@ -117,6 +118,7 @@ object Engine {
         if (!TimeUtil.isWithinWindow(context)) return
         prefs.warningCount = count
         NotificationHelper.showWarningNotification(context, count)
+        OverlayService.show(context, OverlayService.MSG_CAUTION)
     }
 
     /** 設定画面の「状態を確認する」ボタンから呼ぶ、原因切り分け用の診断テキストを作る */
@@ -148,6 +150,7 @@ object Engine {
             }
         }
         prefs.studying = true
+        OverlayService.show(context, OverlayService.MSG_GET_DOWN)
         val serviceIntent = Intent(context, ForegroundMonitorService::class.java)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             context.startForegroundService(serviceIntent)
