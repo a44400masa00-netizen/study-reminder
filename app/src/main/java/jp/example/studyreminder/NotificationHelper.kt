@@ -85,7 +85,6 @@ object NotificationHelper {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setAutoCancel(true)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(title))
 
         if (!useNewButtons) {
             builder
@@ -108,7 +107,6 @@ object NotificationHelper {
         val notif = NotificationCompat.Builder(context, Constants.CHANNEL_STUDY)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setContentTitle(title)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(title))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .build()
